@@ -5,8 +5,12 @@ List choosenAnswers = [];
 
 Color barColor =const Color(0xff2b3e56);
 Color bodyColor =const Color(0xff24283d);
+Color fieldColor =const Color(0xdff5eeff);
 Color orangeOne =const Color(0xffe88331);
-Color orangeSec =const Color(0xFFCE5E02);
+
+var a = false;
+var name = 'Yousef';
+
 
 List<Map<String, dynamic>> questionsss = [
   {
@@ -108,6 +112,7 @@ List<Map<String, dynamic>> questionsss = [
   },
 ];
 
+// Return the correct answers from the above list in array
 List getCorrectAnswers(){
   List li = [];
   for (var i = 0; i < questionsss.length; i++){
@@ -117,13 +122,13 @@ List getCorrectAnswers(){
 }
 
 
-
+// Returns array of score, index of the wrong choosen answers
 List calculateScore(correctAnswers){
 
   int score = 0;
   List worngChoosenAnswers = [];
 
-  for (var i=0 ; i < correctAnswers.length-1; i++){
+  for (var i=0 ; i < correctAnswers.length; i++){
     if(correctAnswers[i] == choosenAnswers[i]){
       score++;
     } else{

@@ -23,6 +23,7 @@ class _QuizPageState extends State<QuizPage> {
           quizNum++;
           // print(quizNum);
           choosenAnswers.add(checkedAnswer);
+          // print(choosenAnswers);
           checkedAnswer = null;
         });
       } else{
@@ -48,6 +49,7 @@ class _QuizPageState extends State<QuizPage> {
       }
     } else {
       quizNum = 0;
+      choosenAnswers.add(checkedAnswer);
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => endPage())
@@ -58,151 +60,157 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 35.0),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-            child: Text(
-              "Quiz : ${quizNum+1}",
-              style: const TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,color: Colors.white
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: bodyColor,
+        appBar: AppBar(
+          backgroundColor: barColor,
+          title: const Text('Quiz App'),
+          centerTitle: true,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 35.0),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                child: Text(
+                  "Quiz : ${quizNum+1}",
+                  style: const TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,color: Colors.white
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          const Divider(
-            thickness: 2.0,color: Colors.white,
-          ),
-
-          const SizedBox(height: 30.0),
-          Container(
-            margin: const EdgeInsets.all(10),
-            alignment: Alignment.center,
-            child: Text(
-              questionsss[quizNum]['question'],
-              overflow: TextOverflow.clip, // ellipsis
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 22.0,
-                color: Colors.white,
+              const Divider(
+                thickness: 2.0,color: Colors.white,
               ),
-            ),
-          ),
 
-          const SizedBox(height: 30.0),
-          ChoiceButton(label: 'A', text: questionsss[quizNum]['answers'][0], checked: false),
-          ChoiceButton(label: 'B', text: questionsss[quizNum]['answers'][1], checked: false),
-          ChoiceButton(label: 'C', text: questionsss[quizNum]['answers'][2], checked: false),
-          ChoiceButton(label: 'D', text: questionsss[quizNum]['answers'][3], checked: false),
-
-          const SizedBox(height: 30.0),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 12.0),
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-
-            child: MaterialButton(
-              onPressed: goToNextQuestion
-              // onPressed:(){
-              //   Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) =>secPage(),)
-              //     );
-              // }
-              ,
-
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)
+              const SizedBox(height: 30.0),
+              Container(
+                margin: const EdgeInsets.all(10),
+                alignment: Alignment.center,
+                child: Text(
+                  questionsss[quizNum]['question'],
+                  overflow: TextOverflow.clip, // ellipsis
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-              color: Color.fromRGBO(245, 90, 12,1),
-              height: 60,
-              minWidth: 100,
-              padding: const EdgeInsets.symmetric(horizontal: 80,vertical: 10),
-              child: const Text('Next',style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w600),),
 
-            ),
+              const SizedBox(height: 30.0),
+              ChoiceButton(label: 'A', text: questionsss[quizNum]['answers'][0], checked: a),
+              ChoiceButton(label: 'B', text: questionsss[quizNum]['answers'][1], checked: a),
+              ChoiceButton(label: 'C', text: questionsss[quizNum]['answers'][2], checked: a),
+              ChoiceButton(label: 'D', text: questionsss[quizNum]['answers'][3], checked: a),
 
-          ),
+              const SizedBox(height: 30.0),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 12.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
 
-        ]
+                child: MaterialButton(
+                  onPressed: goToNextQuestion,
+
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)
+                  ),
+                  color: orangeOne,
+                  height: 60,
+                  minWidth: 100,
+                  padding: const EdgeInsets.symmetric(horizontal: 80,vertical: 10),
+                  child: const Text('Next',style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.w600),),
+
+                ),
+
+              ),
+            ]
+        ),
+      )
     );
   }
 }
 
 // ignore: must_be_immutable
-class ChoiceButton extends StatelessWidget {
+class ChoiceButton extends StatefulWidget {
   final String label;
   final String text;
-  bool checked = false;
+  bool checked;
 
-  // String ch ="";
+  ChoiceButton({Key? key, required this.label, required this.text, required this.checked}) : super(key: key);
 
-  ChoiceButton({super.key, required this.label, required this.text, required this.checked});
+  @override
+  _ChoiceButtonState createState() => _ChoiceButtonState();
+}
 
+class _ChoiceButtonState extends State<ChoiceButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 12.0),
-      padding:const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
-      child: Material(
-        color: Colors.transparent,
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: widget.checked ? orangeOne : fieldColor,
+          borderRadius: BorderRadius.circular(40.0),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 4),
         child: Container(
-          decoration: BoxDecoration(
-            color: Color(0xdff5eeff),
-            borderRadius: BorderRadius.circular(40.0),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 1,vertical: 4),
-          child: Container(
-              width: double.infinity, // or set a fixed width
-              child: MaterialButton(
-                // color: checked! ?  orangeOne :const Color.fromARGB(255, 197, 197, 197),
-                onPressed: (){
-                  checkedAnswer = text;
-                  checked = true;
-                  print(checkedAnswer);
-                },
-                child:Row(
-                  children: [
-                    MaterialButton(
-                      onPressed: (){
-                        checkedAnswer = text;
-                        checked = true;
-                        print(checkedAnswer);
-                      },
-                      minWidth: 5,
-                      // elevation: 10,
-                      color: checked ?  bodyColor : orangeOne,
-                      shape: CircleBorder(),
-
-                      child:Text(
-                          label,
-                          style: const TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold
-                          ),
-                      ),
+          width: double.infinity,
+          child: MaterialButton(
+            onPressed: () {
+              setState(() {
+                // a = false;
+                widget.checked = !widget.checked;
+                checkedAnswer = widget.text;
+                // print(checkedAnswer);
+                // print(widget.checked);
+              });
+            },
+            child: Row(
+              children: [
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      // a = false;
+                      // print(widgetFactory.toString());
+                      widget.checked = !widget.checked;
+                      checkedAnswer = widget.text;
+                      // print(checkedAnswer);
+                      // print(widget.checked);
+                    });
+                  },
+                  minWidth: 5,
+                  color: orangeOne,
+                  shape: CircleBorder(),
+                  child: Text(
+                    widget.label,
+                    style: const TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-
-                    const SizedBox(width: 5.0),
-
-                    Expanded(
-                      child: Text(
-                        text,
-                        overflow: TextOverflow.visible,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            color: Color.fromRGBO(13, 19, 43,1),
-                            fontWeight: FontWeight.normal
-                        ),
-                      ),
-                    ),
-
-                  ],
+                  ),
                 ),
-              )
+                const SizedBox(width: 5.0),
+                Expanded(
+                  child: Text(
+                    widget.text,
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: bodyColor,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
