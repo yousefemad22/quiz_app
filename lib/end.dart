@@ -98,24 +98,25 @@ class _endPageState extends State<endPage> {
               ),
               const SizedBox(height: 10),
               Visibility(
-                visible: score < 10 ? true : false,
-                child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        show = !show;
-                      });
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(orangeOne)),
-                    child: const Text(
-                      "Show wrong answered Questions",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    )),
-              ),
+                  visible: score < 10 ? true : false,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          show = !show;
+                        });
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(orangeOne)),
+                      child: Text(
+                        show
+                            ? "Hide wrong answered Questions"
+                            : "Show wrong answered Questions",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ))),
               const SizedBox(height: 10),
               Expanded(
                 child: Visibility(
