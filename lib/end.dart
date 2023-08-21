@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/vars&funs.dart';
 
-
-
 // The Return Of Score and Wrong Answers Function
 var returnOfScoreAndWrongAnswersFunction = calculateScore(getCorrectAnswers());
 
@@ -21,18 +19,16 @@ class _endPageState extends State<endPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bodyColor,
-      appBar: AppBar(
-        backgroundColor: barColor,
-        title: Text('Quiz App'),
-        centerTitle: true,
-      ),
-      body:
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-            children: [
+        backgroundColor: bodyColor,
+        appBar: AppBar(
+          backgroundColor: barColor,
+          title: Text('Quiz App'),
+          centerTitle: true,
+        ),
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -49,22 +45,32 @@ class _endPageState extends State<endPage> {
                       const Icon(Icons.hail, size: 100, color: Colors.white),
                       const SizedBox(height: 10),
                       RichText(
-                        text: TextSpan(text: 'Grade : ',
-                        style: const TextStyle(fontSize: 20, color: Colors.white),
-                          children:[
-                            TextSpan(text:"${(score/10*100).toString()}%",style: TextStyle(color: orangeOne, fontSize: 20))
-                          ]
-                        )
-                      ),
+                          text: TextSpan(
+                              text: 'Grade : ',
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.white),
+                              children: [
+                            TextSpan(
+                                text: "${(score / 10 * 100).toString()}%",
+                                style:
+                                    TextStyle(color: orangeOne, fontSize: 20))
+                          ])),
                       const SizedBox(height: 10),
                       RichText(
-                        text: TextSpan(text: 'Congratulations : ',
-                          style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-                          children: [
-                            TextSpan(text: name.toUpperCase(),
-                            style: TextStyle(fontSize: 20, color: orangeOne, fontWeight: FontWeight.bold))
-                          ]
-                        ),
+                        text: TextSpan(
+                            text: 'Congratulations : ',
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                            children: [
+                              TextSpan(
+                                  text: name.toUpperCase(),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: orangeOne,
+                                      fontWeight: FontWeight.bold))
+                            ]),
                       ),
                       const SizedBox(height: 10),
                       const Text(
@@ -77,7 +83,7 @@ class _endPageState extends State<endPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'share with us : ',             
+                            'share with us : ',
                             style: TextStyle(fontSize: 20, color: Colors.white),
                           ),
                           Icon(Icons.facebook, size: 25, color: orangeOne),
@@ -90,75 +96,78 @@ class _endPageState extends State<endPage> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 10),
-
               Visibility(
                 visible: score < 10 ? true : false,
                 child: ElevatedButton(
-                        onPressed:(){
-                          show = !show;
-                          print(show);
-                        },
-                        style:ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(orangeOne)),
-                        child: const Text("Show wrong answered Questions",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        )
+                    onPressed: () {
+                      setState(() {
+                        show = !show;
+                      });
+                    },
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(orangeOne)),
+                    child: const Text(
+                      "Show wrong answered Questions",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
                       ),
+                    )),
               ),
               const SizedBox(height: 10),
               Expanded(
                 child: Visibility(
                   visible: show,
                   child: ListView.builder(
-                    itemCount: arrayForWrongAnswersIndexes.length, // Limit the indexing
+                    itemCount: arrayForWrongAnswersIndexes
+                        .length, // Limit the indexing
                     itemBuilder: (context, index) {
                       return Container(
                         margin: const EdgeInsets.all(10),
                         alignment: Alignment.center,
                         child: Card(
                           color: orangeOne,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(10),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  questionsss[arrayForWrongAnswersIndexes[index]]['question'],
-                                  overflow: TextOverflow.clip, // ellipsis
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                  ),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 12.0),
+                          child: Column(children: [
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              alignment: Alignment.center,
+                              child: Text(
+                                questionsss[arrayForWrongAnswersIndexes[index]]
+                                    ['question'],
+                                overflow: TextOverflow.clip, // ellipsis
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
                                 ),
                               ),
-                              Container(
-                                margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: barColor,
-                                  borderRadius: BorderRadius.circular(40.0),
-                                ),
-                                child: Text(questionsss[arrayForWrongAnswersIndexes[index]]['correctAnswer'],
-                                  style: TextStyle(color: Colors.white)
-                                ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 12.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: barColor,
+                                borderRadius: BorderRadius.circular(40.0),
                               ),
-                            ]
-                          ),
+                              child: Text(
+                                  questionsss[
+                                          arrayForWrongAnswersIndexes[index]]
+                                      ['correctAnswer'],
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ]),
                         ),
                       );
                     },
                   ),
                 ),
               )
-            ]
-          )
-        )
-    );
+            ])));
   }
 }
